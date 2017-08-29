@@ -21,6 +21,6 @@ After that there should be a new annotation in the manifest, e.g.:
 
 ## Useful links
 
-[Kubernetes Admission Controllers](https://kubernetes.io/docs/admin/extensible-admission-controllers)
-[Kubernetes Initializer Tutorial](https://github.com/kelseyhightower/kubernetes-initializer-tutorial)
-[Example admission controller](https://github.com/caesarxuchao/example-webhook-admission-controller)
+- [Kubernetes Admission Controllers](https://kubernetes.io/docs/admin/extensible-admission-controllers)
+- [Kubernetes Initializer Tutorial](https://github.com/kelseyhightower/kubernetes-initializer-tutorial)
+- [Example admission controller](https://github.com/caesarxuchao/example-webhook-admission-controller)
