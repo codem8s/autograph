@@ -1,5 +1,5 @@
 # Autograph (pre-alpha)
-Certificate signer and admission controller for Kubernetes manifests.
+Certificate signer and custom admission controller for Kubernetes manifests.
 
 ## Usage
 To sign your manifest:
