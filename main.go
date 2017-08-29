@@ -4,6 +4,7 @@ import (
   "fmt"
   "github.com/urfave/cli"
   "os"
+  "autograph/generate"
 )
 
 func main() {
@@ -18,6 +19,7 @@ func main() {
       Usage:   "generate a key and certificate pair",
       Action:  func(c *cli.Context) error {
         fmt.Println("generate is not implemented yet")
+        generate.Generate()
         return nil
       },
     },
