@@ -14,6 +14,12 @@ After that there should be a new annotation in the manifest, e.g.:
         autograph.codemat.es/signature: 72976B7400E7630F846501847CB04A...
     ...
 
+### Commands:
+- generate - generate a key and certificate pair
+- sign - sign a manifest
+- verify - verify a signed manifest
+- run - starts the HTTP(S) server
+
 ## Flow
 
 1. Signer (CLI tool) signs a manifest using a provided key an puts the signature in the manifest.
