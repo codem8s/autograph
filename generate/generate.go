@@ -9,6 +9,11 @@ import (
 	"encoding/pem"
 )
 
+const (
+	PrivateKeyFile = "private.key"
+	PublicKeyFile = "key.pub"
+)
+
 func generatePrivateKey(bits int) (*rsa.PrivateKey, error){
 	privateKey, err := rsa.GenerateKey(rand.Reader, bits)
 
@@ -32,7 +37,7 @@ func savePrivateKey(privateKey *rsa.PrivateKey) error {
 		Type:  "RSA PRIVATE KEY",
 		Bytes: PrivASN1,
 	})
-	ioutil.WriteFile("private.key", privBytes, 0644) // FIXME @antoniaklja shall we pass destination path here?
+	ioutil.WriteFile(PrivateKeyFile, privBytes, 0644) // FIXME @antoniaklja shall we pass destination path here?
 
 	return nil
 }
@@ -48,12 +53,12 @@ func savePublicKey(publicKey *rsa.PublicKey) error{
 		Type:  "RSA PUBLIC KEY",
 		Bytes: PubASN1,
 	})
-	ioutil.WriteFile("key.pub", pubBytes, 0644)  // FIXME @antoniaklja shall we pass destination path here?
+	ioutil.WriteFile(PublicKeyFile, pubBytes, 0644)  // FIXME @antoniaklja shall we pass destination path here?
 
 	return nil
 }
 
-func Generate() error {
+func GenerateKeyPair() error {
 	fmt.Println("Generating private and public RSA key pair..")
 
 	privateKey, err := generatePrivateKey(2048)
