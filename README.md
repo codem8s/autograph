@@ -4,8 +4,8 @@ Certificate signer and custom admission controller for Kubernetes manifests.
 ## Usage
 To sign your manifest:
 
-    autograph sign example-manifest.yaml
-  
+  autograph sign example-manifest.yaml
+
 After that there should be a new annotation in the manifest, e.g.:
 
     ...
