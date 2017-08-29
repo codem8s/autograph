@@ -15,9 +15,9 @@ After that there should be a new annotation in the manifest, e.g.:
 
 ## Flow
 
-Signer (CLI tool) signs a manifest using a provided key an puts the signature in the manifest.
-Verifier (an admission controller) checks the signature with a provided certificate.
-If the signature is correct the manifest is deployed (or more precisly, it's is handed over to other admission controllers).
+1. Signer (CLI tool) signs a manifest using a provided key an puts the signature in the manifest.
+2. Verifier (an admission controller) checks the signature with a provided certificate.
+3. If the signature is correct the manifest is deployed (or more precisly, it's is handed over to other admission controllers).
 
 ## Useful links
 
