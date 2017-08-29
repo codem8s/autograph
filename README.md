@@ -2,10 +2,31 @@
 Certificate signer and custom admission controller for Kubernetes manifests.
 
 ## Usage
-To sign your manifest:
 
-  autograph sign example-manifest.yaml
+    NAME:
+      autograph - A new cli application
 
+    USAGE:
+      autograph [global options] command [command options] [arguments...]
+
+    VERSION:
+      0.1
+
+    COMMANDS:
+      generate, g  generate a key and certificate pair
+      sign, s      sign a manifest
+      verify, v    verify a signed manifest
+      run, v       starts the HTTP(S) server
+      help, h      Shows a list of commands or help for one command
+
+    GLOBAL OPTIONS:
+      --help, -h     show help
+      --version, -v  print the version
+      
+ To sign your manifest:
+ 
+      autograph sign example-manifest.yaml
+    
 After that there should be a new annotation in the manifest, e.g.:
 
     ...
