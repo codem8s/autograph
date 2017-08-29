@@ -19,7 +19,7 @@ func main() {
       Usage:   "generate a key and certificate pair",
       Action:  func(c *cli.Context) error {
         fmt.Println("generate is not implemented yet")
-        generate.Generate()
+        generate.GenerateKeyPair()
         return nil
       },
     },
