@@ -1,5 +1,23 @@
-# autograph
+# Autograph (pre-alpha)
 Certificate signer and custom admission controller for Kubernetes manifests.
+
+## Usage
+To sign your manifest:
+
+  autograph sign example-manifest.yaml
+  
+After that there should be a new annotation in the manifest, e.g.:
+
+  ...
+    annotations:
+      autograph.codemat.es/signature: 72976B7400E7630F846501847CB04A...
+  ...
+
+## Flow
+
+Signer (CLI tool) signs a manifest using a provided key an puts the signature in the manifest.
+Verifier (an admission controller) checks the signature with a provided certificate.
+If the signature is correct the manifest is deployed (or more precisly, it's is handed over to other admission controllers).
 
 ## Useful links
 
