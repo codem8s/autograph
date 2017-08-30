@@ -5,6 +5,8 @@ import (
 	"crypto/rand"
 	"crypto"
 	"fmt"
+	"crypto/sha256"
+	"encoding/base64"
 )
 
 func Sign(privateKey *rsa.PrivateKey, hash crypto.Hash, hashed []byte) ([]byte, error){
@@ -23,4 +25,15 @@ func VerifySignature(publicKey *rsa.PublicKey, hash crypto.Hash, hashed []byte, 
 		return false
 	}
 	return true
+}
+
+func SHA256Hash(data []byte) []byte {
+	h := sha256.New()
+	h.Write([]byte(data))
+	hashed := h.Sum(nil)
+	return hashed
+}
+
+func SHA256ToBase64(hashed []byte) string {
+	return base64.URLEncoding.EncodeToString(hashed)
 }
