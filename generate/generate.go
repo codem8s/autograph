@@ -69,8 +69,17 @@ func GenerateKeyPair() (*rsa.PrivateKey, *rsa.PublicKey, error) {
 
 	publicKey := generatePublicKey(privateKey)
 
-	savePrivateKey(privateKey)
-	savePublicKey(publicKey)
+	err = savePrivateKey(privateKey)
+	if err != nil {
+		fmt.Println(err.Error)
+		return nil, nil, err
+	}
+
+	err = savePublicKey(publicKey)
+	if err != nil {
+		fmt.Println(err.Error)
+		return nil, nil, err
+	}
 
 	fmt.Println("Successfully generated private and public RSA key pair")
 	return privateKey, publicKey, nil

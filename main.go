@@ -16,9 +16,12 @@ func main() {
     {
       Name:    "generate",
       Aliases: []string{"g"},
-      Usage:   "generate a key and certificate pair",
+      Usage:   "generate RSA key and certificate pair",
       Action:  func(c *cli.Context) error {
-        generate.GenerateKeyPair()
+        _, _, err := generate.GenerateKeyPair()
+        if err != nil {
+          return err
+        }
         return nil
       },
     },
