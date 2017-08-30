@@ -18,7 +18,6 @@ func main() {
       Aliases: []string{"g"},
       Usage:   "generate a key and certificate pair",
       Action:  func(c *cli.Context) error {
-        fmt.Println("generate is not implemented yet")
         generate.GenerateKeyPair()
         return nil
       },

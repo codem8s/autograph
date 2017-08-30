@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	PrivateKeyFile = "private.key"
-	PublicKeyFile = "key.pub"
+	PrivateKeyFile = "autograph.key"
+	PublicKeyFile = "autograph.pub"
 )
 
 func generatePrivateKey(bits int) (*rsa.PrivateKey, error){
@@ -37,7 +37,7 @@ func savePrivateKey(privateKey *rsa.PrivateKey) error {
 		Type:  "RSA PRIVATE KEY",
 		Bytes: PrivASN1,
 	})
-	ioutil.WriteFile(PrivateKeyFile, privBytes, 0644) // FIXME @antoniaklja shall we pass destination path here?
+	ioutil.WriteFile(PrivateKeyFile, privBytes, 0600)
 
 	return nil
 }
@@ -53,7 +53,7 @@ func savePublicKey(publicKey *rsa.PublicKey) error{
 		Type:  "RSA PUBLIC KEY",
 		Bytes: PubASN1,
 	})
-	ioutil.WriteFile(PublicKeyFile, pubBytes, 0644)  // FIXME @antoniaklja shall we pass destination path here?
+	ioutil.WriteFile(PublicKeyFile, pubBytes, 0600)
 
 	return nil
 }
