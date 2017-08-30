@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  branch = "master"
+  name = "github.com/codem8s/autograph"
+  packages = ["generate"]
+  revision = "9792c7033a1d91331d0134274da9fc83ae000409"
+
+[[projects]]
   name = "github.com/urfave/cli"
   packages = ["."]
   revision = "cfb38830724cc34fedffe9a2a29fb54fa9169cd1"
@@ -10,6 +16,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "dc31bf18b10af3b28727eb5be721811713c44bfc4ac5f49047e4ce7829f998a2"
+  inputs-digest = "bd45ac726aa5879cfc17c43aeb6907b32cd2294a30e9f3b9a8d12ee1af027ec2"
   solver-name = "gps-cdcl"
   solver-version = 1
