@@ -22,21 +22,22 @@ func TestVerifySignature(t *testing.T) {
 		t.Error("Public Key doesn't exist")
 	}
 
-	// create hash
-	message := "super secret message"
-	hash := sha256.New()
-	hash.Write([]byte(message))
-	hashed := hash.Sum(nil)
-
 	// generate signature from hash
-	signature, err := Sign(privateKey, crypto.SHA256, hashed)
+	signature, err := Sign(privateKey, crypto.SHA256, hash("Super secret message"))
 	if err != nil {
 		t.Error("Cannot generate SHA256 hash")
 	}
 
 	// verify signature
-	verified := VerifySignature(publicKey, crypto.SHA256, hashed, signature)
+	verified := VerifySignature(publicKey, crypto.SHA256, hash("Super secret message"), signature)
 	if !verified {
 		t.Error("Signature verification failed")
 	}
+}
+
+func hash(data string) []byte {
+	hash := sha256.New()
+	hash.Write([]byte(data))
+	hashed := hash.Sum(nil)
+	return hashed
 }
