@@ -1,4 +1,6 @@
 # Autograph (pre-alpha)
+[![Build Status](https://travis-ci.org/codem8s/autograph.svg?branch=master)](https://travis-ci.org/codem8s/autograph)
+
 Certificate signer and custom admission controller for Kubernetes manifests.
 
 ## Usage
