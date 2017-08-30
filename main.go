@@ -4,7 +4,7 @@ import (
   "fmt"
   "github.com/urfave/cli"
   "os"
-  "autograph/generate"
+  "generate"
 )
 
 func main() {
