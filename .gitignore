@@ -15,3 +15,8 @@
 
 # Idea
 .idea
+
+# Application binaries and keys
+autograph
+autograph.key
+autograph.pub
