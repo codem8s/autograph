@@ -1,4 +1,9 @@
 language: go
+before_script:
+  - go vet ./...
 go:
   - 1.8
   - master
+
+script:
+  - go test -v ./...
