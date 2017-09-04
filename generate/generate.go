@@ -18,7 +18,7 @@ func generatePrivateKey(bits int) (*rsa.PrivateKey, error){
 	privateKey, err := rsa.GenerateKey(rand.Reader, bits)
 
 	if err != nil {
-		fmt.Println(err.Error)
+		fmt.Println(err)
 		return nil, err
 	}
 
@@ -63,7 +63,7 @@ func GenerateKeyPair() (*rsa.PrivateKey, *rsa.PublicKey, error) {
 
 	privateKey, err := generatePrivateKey(2048)
 	if err != nil {
-		fmt.Println(err.Error)
+		fmt.Println(err)
 		return nil, nil, err
 	}
 
@@ -71,13 +71,13 @@ func GenerateKeyPair() (*rsa.PrivateKey, *rsa.PublicKey, error) {
 
 	err = savePrivateKey(privateKey)
 	if err != nil {
-		fmt.Println(err.Error)
+		fmt.Println(err)
 		return nil, nil, err
 	}
 
 	err = savePublicKey(publicKey)
 	if err != nil {
-		fmt.Println(err.Error)
+		fmt.Println(err)
 		return nil, nil, err
 	}
 
