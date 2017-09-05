@@ -49,6 +49,32 @@ After that there should be a new annotation in the manifest, e.g.:
 2. Verifier (an admission controller) checks the signature with a provided certificate.
 3. If the signature is correct the manifest is deployed (or more precisly, it's is handed over to other admission controllers).
 
+## Build from source code
+
+### Create go workspace
+
+    mkdir -p ~/go
+    export GOPATH=~/go
+    
+### Create directory structure and clone repository
+    
+    mkdir $GOPATH/src/github.com/codem8s
+    git clone git@github.com:codem8s/autograph.git
+    
+### Build
+    
+    cd $GOPATH/src/github.com/codem8s/autograph
+    go build
+    
+### Run test
+
+    cd $GOPATH/src/github.com/codem8s/autograph
+    go test
+
+## Contribute
+
+If you have any idea for an improvement or found a bug don't hesitate to open an issue or just make a pull request!
+
 ## Useful links
 
 - [Kubernetes Admission Controllers](https://kubernetes.io/docs/admin/extensible-admission-controllers)
