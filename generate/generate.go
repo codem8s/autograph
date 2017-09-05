@@ -14,7 +14,7 @@ const (
 	PublicKeyFile = "autograph.pub"
 )
 
-func generatePrivateKey(bits int) (*rsa.PrivateKey, error){
+func generatePrivateKey(bits int) (*rsa.PrivateKey, error) {
 	privateKey, err := rsa.GenerateKey(rand.Reader, bits)
 
 	if err != nil {
@@ -42,7 +42,7 @@ func savePrivateKey(privateKey *rsa.PrivateKey) error {
 	return nil
 }
 
-func savePublicKey(publicKey *rsa.PublicKey) error{
+func savePublicKey(publicKey *rsa.PublicKey) error {
 	PubASN1, err := x509.MarshalPKIXPublicKey(publicKey)
 	if err != nil {
 		fmt.Println(err)
