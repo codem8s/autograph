@@ -43,6 +43,11 @@ After that there should be a new annotation in the manifest, e.g.:
 - verify - verify a signed manifest
 - run - starts the HTTP(S) server
 
+### Dependencies
+
+- Go 1.8.0+
+- Kubernetes 1.7.0+
+
 ## Flow
 
 1. Signer (CLI tool) signs a manifest using a provided key an puts the signature in the manifest.
