@@ -8,6 +8,12 @@ import (
 	"log"
 )
 
+// This file implements common CLI operations:
+// * generate - generate a key and certificate pair which can be used to sign/verify
+// * sign - sign a manifest
+// * verify - verify a signed manifest
+// * run - starts the HTTP(S) server
+
 func main() {
 	app := cli.NewApp()
 	app.Name = "autograph"
