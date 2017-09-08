@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/codem8s/autograph.svg?branch=master)](https://travis-ci.org/codem8s/autograph)
 ![Version](https://img.shields.io/badge/version-0.0.1-brightgreen.svg)
 [![Docker Repository on Quay.io](https://quay.io/repository/codem8s/autograph/status "Docker Repository on Quay.io")](https://quay.io/repository/codem8s/autograph)
+[![Coverage](https://codecov.io/gh/codem8s/autograph/branch/master/graph/badge.svg)](https://codecov.io/gh/codem8s/autograph)
 [![Go Report Card](https://goreportcard.com/badge/github.com/codem8s/autograph)](https://goreportcard.com/report/github.com/codem8s/autograph)
 
 Certificate signer and custom admission controller for Kubernetes manifests.
