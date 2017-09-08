@@ -17,7 +17,7 @@ fi
 
 GOIMPORTS_FILES=$(goimports -l .)
 if [ -n "${GOIMPORTS_FILES}" ]; then
-  printf >&2 'goimports failed for the following files:\n%s\n\nplease run "goimports -w ." on your changes before committing.\n' "${GOFMT_FILES}"
+  printf >&2 'goimports failed for the following files:\n%s\n\nplease run "goimports -w ." on your changes before committing.\n' "${GOIMPORTS_FILES}"
 # FIXME
 #  exit 1
 fi
@@ -26,4 +26,11 @@ GOVET_ERRORS=$(go tool vet *.go 2>&1)
 if [ -n "${GOVET_ERRORS}" ]; then
   printf >&2 'go vet failed for the following reasons:\n%s\n\nplease run "go tool vet *.go" on your changes before committing.\n' "${GOVET_ERRORS}"
   exit 1
+fi
+
+DEP_ERRORS=$(dep status)
+if [ -n "${DEP_ERRORS}" ]; then
+  printf >&2 'dep status failed for the following reasons:\n%s\n\nplease run "dep ensure" on your changes before committing.\n' "${DEP_ERRORS}"
+# FIXME
+#  exit 1
 fi
