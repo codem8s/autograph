@@ -1,8 +1,5 @@
 language: go
-go_import_path: github.com/codem8s/autograph
-
-before_script:
-  - go vet ./...
+#go_import_path: github.com/codem8s/autograph
 
 go:
   - 1.8
@@ -20,7 +17,13 @@ matrix:
   allow_failures:
     - go: tip
 
+#before_script:
+#  - go get github.com/codem8s/autograph
+#  - go get github.com/tools/godep
+#  - go get github.com/golang/lint/golint
+
 script:
+  - ./pre-commit.sh
   - ./test.sh
 
 after_success:
