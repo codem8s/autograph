@@ -8,18 +8,16 @@ if [ -n "${GOFMT_FILES}" ]; then
   exit 1
 fi
 
-GOLINT_ERRORS=$(golint ./... | grep -v "Id should be")
+GOLINT_ERRORS=$(golint $(find . -type d -not -path "./vendor/*") | grep -v "Id should be")
 if [ -n "${GOLINT_ERRORS}" ]; then
   printf >&2 'golint failed for the following reasons:\n%s\n\nplease run "golint ./..." on your changes before committing.\n' "${GOLINT_ERRORS}"
-# FIXME
-#  exit 1
+  exit 1
 fi
 
-GOIMPORTS_FILES=$(goimports -l .)
+GOIMPORTS_FILES=$(goimports -l $(find . -type f -name '*.go' -not -path "./vendor/*"))
 if [ -n "${GOIMPORTS_FILES}" ]; then
   printf >&2 'goimports failed for the following files:\n%s\n\nplease run "goimports -w ." on your changes before committing.\n' "${GOIMPORTS_FILES}"
-# FIXME
-#  exit 1
+  exit 1
 fi
 
 GOVET_ERRORS=$(go tool vet *.go 2>&1)
@@ -29,8 +27,7 @@ if [ -n "${GOVET_ERRORS}" ]; then
 fi
 
 DEP_ERRORS=$(dep status)
-if [ -n "${DEP_ERRORS}" ]; then
+if [ $? -ne 0 ]; then
   printf >&2 'dep status failed for the following reasons:\n%s\n\nplease run "dep ensure" on your changes before committing.\n' "${DEP_ERRORS}"
-# FIXME
-#  exit 1
+  exit 1
 fi
