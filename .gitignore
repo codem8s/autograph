@@ -15,6 +15,7 @@
 
 # Idea
 .idea
+*.iml
 
 # Application binaries and keys
 autograph
