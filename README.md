@@ -60,24 +60,21 @@ After that there should be a new annotation in the manifest, e.g.:
 
 ## Build from source code
 
-### Create go workspace
+### Define go workspace (GOPATH)
 
-    mkdir -p ~/go
     export GOPATH=~/go
     
-### Create directory structure and clone repository
+### Get the repository
     
-    mkdir $GOPATH/src/github.com/codem8s
-    git clone git@github.com:codem8s/autograph.git
-    
+    go get -u github.com/codem8s/autograph
+    cd $GOPATH/src/github.com/codem8s/autograph    
+
 ### Build
-    
-    cd $GOPATH/src/github.com/codem8s/autograph
+
     go build
     
-### Run test
+### Run tests
 
-    cd $GOPATH/src/github.com/codem8s/autograph
     go test
 
 ## Contribute
@@ -90,3 +87,4 @@ If you have any idea for an improvement or found a bug don't hesitate to open an
 - [Kubernetes Initializer Tutorial](https://github.com/kelseyhightower/kubernetes-initializer-tutorial)
 - [Example admission controller](https://github.com/caesarxuchao/example-webhook-admission-controller)
 - [Golang on Ubuntu](https://github.com/golang/go/wiki/Ubuntu)
+- [Golang Dep](https://github.com/golang/dep)
