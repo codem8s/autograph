@@ -12,8 +12,8 @@ go:
 env:
   matrix:
    - TARGET=amd64
-   - TARGET=darwin-amd64
-   - TARGET=windows-amd64
+#   - TARGET=darwin-amd64
+#   - TARGET=windows-amd64
 
 matrix:
   fast_finish: true
@@ -21,7 +21,7 @@ matrix:
     - go: tip
 
 script:
-  - go test -race -coverprofile=coverage.txt -covermode=atomic -v ./...
+  - ./test.sh
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
