@@ -1,19 +1,19 @@
 package generate
 
 import (
-	"fmt"
-	"crypto/rsa"
 	"crypto/rand"
+	"crypto/rsa"
 	"crypto/x509"
-	"io/ioutil"
 	"encoding/pem"
+	"fmt"
+	"io/ioutil"
 )
 
 // This file implements necessary functions to generate and save RSA key pair.
 
 const (
 	PrivateKeyFile = "autograph.key"
-	PublicKeyFile = "autograph.pub"
+	PublicKeyFile  = "autograph.pub"
 )
 
 func generatePrivateKey(bits int) (*rsa.PrivateKey, error) {

@@ -1,8 +1,8 @@
 package generate
 
 import (
-	"testing"
 	"os"
+	"testing"
 )
 
 func TestGenerateRSAKeyPair(t *testing.T) {

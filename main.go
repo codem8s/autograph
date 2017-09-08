@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/urfave/cli"
-	"os"
 	"github.com/codem8s/autograph/generate"
+	"github.com/urfave/cli"
 	"log"
+	"os"
 )
 
 // This file implements common CLI operations:
@@ -24,7 +24,7 @@ func main() {
 			Name:    "generate",
 			Aliases: []string{"g"},
 			Usage:   "generate RSA key and certificate pair",
-			Action:  func(c *cli.Context) error {
+			Action: func(c *cli.Context) error {
 				_, _, err := generate.GenerateKeyPair()
 				if err != nil {
 					return err
@@ -36,25 +36,25 @@ func main() {
 			Name:    "sign",
 			Aliases: []string{"s"},
 			Usage:   "sign a manifest",
-			Action:  func(c *cli.Context) error {
+			Action: func(c *cli.Context) error {
 				fmt.Println("sign is not implemented yet")
 				return nil
 			},
 		},
 		{
-			Name:        "verify",
-			Aliases:     []string{"v"},
-			Usage:       "verify a signed manifest",
-			Action:  func(c *cli.Context) error {
+			Name:    "verify",
+			Aliases: []string{"v"},
+			Usage:   "verify a signed manifest",
+			Action: func(c *cli.Context) error {
 				fmt.Println("verify is not implemented yet")
 				return nil
 			},
 		},
 		{
-			Name:        "run",
-			Aliases:     []string{"v"},
-			Usage:       "starts the HTTP(S) server",
-			Action:  func(c *cli.Context) error {
+			Name:    "run",
+			Aliases: []string{"v"},
+			Usage:   "starts the HTTP(S) server",
+			Action: func(c *cli.Context) error {
 				fmt.Println("run is not implemented yet")
 				return nil
 			},

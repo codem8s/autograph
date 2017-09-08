@@ -1,12 +1,12 @@
 package crypto
 
 import (
-	"crypto/rsa"
-	"crypto/rand"
 	"crypto"
-	"fmt"
+	"crypto/rand"
+	"crypto/rsa"
 	"crypto/sha256"
 	"encoding/base64"
+	"fmt"
 )
 
 // This file implements common cryptographic functions used to sign and verify the content(e.g. kubernetes manifests).
@@ -14,7 +14,7 @@ import (
 // Sign calculated the RSA signature of hashed value using RSA private key.
 //
 // To generate hash you can use generate.SHA256Hash function.
-func Sign(privateKey *rsa.PrivateKey, hash crypto.Hash, hashed []byte) ([]byte, error){
+func Sign(privateKey *rsa.PrivateKey, hash crypto.Hash, hashed []byte) ([]byte, error) {
 	signature, err := rsa.SignPKCS1v15(rand.Reader, privateKey, hash, hashed)
 	if err != nil {
 		fmt.Println(err)

@@ -3,9 +3,9 @@ package generate
 import (
 	"crypto/rsa"
 	"crypto/x509"
+	"encoding/pem"
 	"fmt"
 	"io/ioutil"
-	"encoding/pem"
 )
 
 // This file implements necessary functions to load/parse RSA key pair.
