@@ -15,6 +15,13 @@ if [ -n "${GOLINT_ERRORS}" ]; then
 #  exit 1
 fi
 
+GOIMPORTS_FILES=$(goimports -l .)
+if [ -n "${GOIMPORTS_FILES}" ]; then
+  printf >&2 'goimports failed for the following files:\n%s\n\nplease run "goimports -w ." on your changes before committing.\n' "${GOFMT_FILES}"
+# FIXME
+#  exit 1
+fi
+
 GOVET_ERRORS=$(go tool vet *.go 2>&1)
 if [ -n "${GOVET_ERRORS}" ]; then
   printf >&2 'go vet failed for the following reasons:\n%s\n\nplease run "go tool vet *.go" on your changes before committing.\n' "${GOVET_ERRORS}"

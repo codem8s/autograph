@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/codem8s/autograph/generate"
-	"github.com/urfave/cli"
 	"log"
 	"os"
+
+	"github.com/codem8s/autograph/generate"
+	"github.com/urfave/cli"
 )
 
 // This file implements common CLI operations:

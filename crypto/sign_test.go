@@ -2,8 +2,9 @@ package crypto
 
 import (
 	"crypto"
-	"github.com/codem8s/autograph/generate"
 	"testing"
+
+	"github.com/codem8s/autograph/generate"
 )
 
 func TestVerifySignature(t *testing.T) {
