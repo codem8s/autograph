@@ -17,10 +17,10 @@ matrix:
   allow_failures:
     - go: tip
 
-#before_script:
+before_script:
 #  - go get github.com/codem8s/autograph
 #  - go get github.com/tools/godep
-#  - go get github.com/golang/lint/golint
+  - go get github.com/golang/lint/golint
 
 script:
   - ./pre-commit.sh
