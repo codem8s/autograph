@@ -1,9 +1,20 @@
 language: go
+go_import_path: github.com/codem8s/autograph
+
 before_script:
   - go vet ./...
+
 go:
   - 1.8
+  - 1.9
   - master
+  - tip
+  
+env:
+  matrix:
+   - TARGET=amd64
+   - TARGET=darwin-amd64
+   - TARGET=windows-amd64
 
 script:
   - go test -v -race -coverprofile=coverage.txt -covermode=atomic
