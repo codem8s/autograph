@@ -11,6 +11,8 @@ import (
 
 // This file implements necessary functions to generate and save RSA key pair.
 
+// PrivateKeyFile - the private key filename
+// PublicKeyFile  - the public key filename
 const (
 	PrivateKeyFile = "autograph.key"
 	PublicKeyFile  = "autograph.pub"
@@ -60,7 +62,7 @@ func savePublicKey(publicKey *rsa.PublicKey) error {
 	return nil
 }
 
-// GenerateKeyPair generated RSA key pair with 2048 bits length.
+// KeyPair generated RSA key pair with 2048 bits length.
 // Also writes RSA key pair to the file system
 // under names defined in PrivateKeyFile and PublicKeyFile constants.
 //
@@ -68,7 +70,7 @@ func savePublicKey(publicKey *rsa.PublicKey) error {
 // It might be parsed/loaded using following functions:
 // - keys.LoadPrivateKey
 // - keys.LoadPublicKey
-func GenerateKeyPair() (*rsa.PrivateKey, *rsa.PublicKey, error) {
+func KeyPair() (*rsa.PrivateKey, *rsa.PublicKey, error) {
 	fmt.Println("Generating private and public RSA key pair..")
 
 	privateKey, err := generatePrivateKey(2048)

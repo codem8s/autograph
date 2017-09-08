@@ -7,7 +7,7 @@ import (
 
 func TestGenerateRSAKeyPair(t *testing.T) {
 	// when
-	privateKey, publicKey, err := GenerateKeyPair()
+	privateKey, publicKey, err := KeyPair()
 
 	// then
 	if err != nil {

@@ -26,7 +26,7 @@ func main() {
 			Aliases: []string{"g"},
 			Usage:   "generate RSA key and certificate pair",
 			Action: func(c *cli.Context) error {
-				_, _, err := generate.GenerateKeyPair()
+				_, _, err := generate.KeyPair()
 				if err != nil {
 					return err
 				}

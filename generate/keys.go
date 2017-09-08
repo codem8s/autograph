@@ -10,7 +10,7 @@ import (
 
 // This file implements necessary functions to load/parse RSA key pair.
 
-// LoadPrivateKey parse parse key in PEM format and returns *rsa.PrivateKey.
+// LoadPrivateKey parse key in PEM format and returns *rsa.PrivateKey.
 func LoadPrivateKey(path string) (*rsa.PrivateKey, error) {
 	bytes, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -27,7 +27,7 @@ func LoadPrivateKey(path string) (*rsa.PrivateKey, error) {
 	return privateKey, nil
 }
 
-// LoadPrivateKey parse key in PEM format and returns *rsa.PublicKey.
+// LoadPublicKey parse key in PEM format and returns *rsa.PublicKey.
 func LoadPublicKey(path string) (*rsa.PublicKey, error) {
 	bytes, err := ioutil.ReadFile(path)
 	if err != nil {

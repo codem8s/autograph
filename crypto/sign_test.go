@@ -9,7 +9,7 @@ import (
 
 func TestVerifySignature(t *testing.T) {
 	// generate rsa keypair
-	privateKey, publicKey, err := generate.GenerateKeyPair()
+	privateKey, publicKey, err := generate.KeyPair()
 	if err != nil {
 		t.Error("Cannot generate RSA keypair")
 	}
