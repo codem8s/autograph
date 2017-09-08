@@ -2,7 +2,6 @@
 
 PACKAGES=$(go list ./... | grep -v vendor)
 
-echo
 echo Running gofmt
 GOFMT_FILES=$(go fmt ${PACKAGES})
 if [ -n "${GOFMT_FILES}" ]; then
@@ -10,7 +9,6 @@ if [ -n "${GOFMT_FILES}" ]; then
   exit 1
 fi
 
-echo
 echo Running golint
 GOLINT_ERRORS=$(golint ${PACKAGES} | grep -v "Id should be")
 if [ -n "${GOLINT_ERRORS}" ]; then
@@ -18,7 +16,6 @@ if [ -n "${GOLINT_ERRORS}" ]; then
   exit 1
 fi
 
-echo
 echo Running goimports
 GOIMPORTS_FILES=$(goimports -l $(find . -type f -name '*.go' -not -path "./vendor/*"))
 if [ -n "${GOIMPORTS_FILES}" ]; then
@@ -26,7 +23,6 @@ if [ -n "${GOIMPORTS_FILES}" ]; then
   exit 1
 fi
 
-echo
 echo Running go vet
 GOVET_ERRORS=$(go vet ${PACKAGES} 2>&1)
 if [ -n "${GOVET_ERRORS}" ]; then
@@ -34,12 +30,9 @@ if [ -n "${GOVET_ERRORS}" ]; then
   exit 1
 fi
 
-echo
 echo Running go dep
 DEP_ERRORS=$(dep status)
 if [ $? -ne 0 ]; then
   printf >&2 'dep status failed for the following reasons:\n%s\n\nplease run "dep ensure" on your changes before committing.\n' "${DEP_ERRORS}"
   exit 1
 fi
-
-echo
