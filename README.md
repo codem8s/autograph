@@ -1,6 +1,7 @@
 # Autograph (pre-alpha)
 [![Build Status](https://travis-ci.org/codem8s/autograph.svg?branch=master)](https://travis-ci.org/codem8s/autograph)
 ![Version](https://img.shields.io/badge/version-0.0.1-brightgreen.svg)
+[![Docker Repository on Quay.io](https://quay.io/repository/codem8s/autograph/status "Docker Repository on Quay.io")](https://quay.io/repository/codem8s/autograph)
 
 Certificate signer and custom admission controller for Kubernetes manifests.
 
