@@ -1,5 +1,4 @@
 language: go
-#go_import_path: github.com/codem8s/autograph
 
 go:
   - 1.8
@@ -21,6 +20,7 @@ before_script:
 #  - go get github.com/codem8s/autograph
 #  - go get github.com/tools/godep
   - go get github.com/golang/lint/golint
+  - go get golang.org/x/tools/cmd/goimports
 
 script:
   - ./pre-commit.sh
