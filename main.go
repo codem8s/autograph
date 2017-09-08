@@ -17,7 +17,7 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "autograph"
-	app.Version = "0.1"
+	app.Version = "0.0.1"
 
 	app.Commands = []cli.Command{
 		{
