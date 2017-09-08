@@ -1,5 +1,6 @@
 # Autograph (pre-alpha)
 [![Build Status](https://travis-ci.org/codem8s/autograph.svg?branch=master)](https://travis-ci.org/codem8s/autograph)
+![Version](https://img.shields.io/badge/version-0.0.1-brightgreen.svg)
 
 Certificate signer and custom admission controller for Kubernetes manifests.
 
@@ -12,7 +13,7 @@ Certificate signer and custom admission controller for Kubernetes manifests.
       autograph [global options] command [command options] [arguments...]
 
     VERSION:
-      0.1
+      0.0.1
 
     COMMANDS:
       generate, g  generate a key and certificate pair
