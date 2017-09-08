@@ -6,8 +6,7 @@ before_script:
 
 go:
   - 1.8
-  - 1.9
-  - master
+  - 1.x
   - tip
   
 env:
@@ -16,8 +15,13 @@ env:
    - TARGET=darwin-amd64
    - TARGET=windows-amd64
 
+matrix:
+  fast_finish: true
+  allow_failures:
+    - go: tip
+
 script:
-  - go test -v -race -coverprofile=coverage.txt -covermode=atomic
+  - go test -race -coverprofile=coverage.txt -covermode=atomic -v ./...
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
