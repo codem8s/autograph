@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: autograph
+  namespace: default
+  labels:
+    app: autograph
+spec:
+  ports:
+    - port: 443
+      targetPort: 8000
+  selector:
+    app: autograph
+  clusterIP: 10.0.0.231

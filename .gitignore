@@ -21,3 +21,6 @@
 autograph
 autograph.key
 autograph.pub
+
+/clientCert.pem
+/clientKey.pem

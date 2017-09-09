@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: echoserver
+  namespace: default
+spec:
+  containers:
+    - name: echoserver
+      image: gcr.io/google_containers/echoserver:1.4
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 8000

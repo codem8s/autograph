@@ -1,11 +1,13 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/codem8s/autograph/generate"
+	"github.com/codem8s/autograph/server"
+	"github.com/golang/glog"
 	"github.com/urfave/cli"
 )
 
@@ -14,8 +16,8 @@ import (
 // * sign - sign a manifest
 // * verify - verify a signed manifest
 // * run - starts the HTTP(S) server
-
 func main() {
+	flag.Parse()
 	app := cli.NewApp()
 	app.Name = "autograph"
 	app.Version = "0.0.1"
@@ -53,11 +55,10 @@ func main() {
 		},
 		{
 			Name:    "run",
-			Aliases: []string{"v"},
+			Aliases: []string{"r"},
 			Usage:   "starts the HTTP(S) server",
 			Action: func(c *cli.Context) error {
-				fmt.Println("run is not implemented yet")
-				return nil
+				return server.Run()
 			},
 		},
 	}
@@ -65,6 +66,6 @@ func main() {
 	err := app.Run(os.Args)
 
 	if err != nil {
-		log.Fatal(err)
+		glog.Fatal(err)
 	}
 }
