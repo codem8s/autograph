@@ -77,6 +77,51 @@ After that there should be a new annotation in the manifest, e.g.:
 
     go test
 
+## Run on minikube
+
+### Installation for Ubuntu
+
+    sudo apt-get update
+    sudo apt-get install virtualbox
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    chmod +x ./kubectl
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.22.0/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+
+### Run
+
+    cd ~/go
+    export GOPATH=$(pwd)
+    cd $GOPATH/src/github.com/codem8s/autograph
+    ./gencerts.sh
+    ./start-minikube.sh
+    export CGO_ENABLED=0 GOOS=linux
+    go build
+    eval $(minikube docker-env)
+    docker build -t autograph .
+    kubectl create -f kubernetes/service.yaml
+    kubectl create -f kubernetes/autograph.yaml
+    
+### Test
+
+    kubectl create -f kubernetes/echoserver.yaml
+    kubectl get po
+    kubectl logs autograph
+
+## Dependency management
+    
+### Installation    
+    
+    cd ~/go
+    go get -u github.com/golang/dep/cmd/dep
+    
+### Usage
+
+    export GOPATH=$(pwd)
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+    cd $GOPATH/src/github.com/codem8s/autograph
+    dep ensure
+
 ## Contribute
 
 If you have any idea for an improvement or found a bug don't hesitate to open an issue or just make a pull request!
