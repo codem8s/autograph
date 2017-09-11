@@ -1,36 +1,51 @@
 language: go
 
 go:
-  - 1.8
-  - 1.x
-  - tip
-  
+- 1.8
+- 1.x
+- tip
+
 env:
-  matrix:
-   - TARGET=amd64
-#   - TARGET=darwin-amd64
-#   - TARGET=windows-amd64
+  global:
+  # Short Git hash
+  - COMMIT=${TRAVIS_COMMIT::6}
+  # Quay user
+  - secure: l+3BiUEv8qlMQt5OHr8ullUmEyru3b01tMANarXPkgo0TTof0rL0bUWyigChL7Z6pXG52husgqRvJHL+F4slJVBCa40qlauyx+3YBoRENTZXzx9qi3sU+oQEVI1a301BMAkNPQMycpbDVOoLQ+oABavHfzCp8Tj36vylAhH2FzDL2KbpJV7y8VPzPleSY56O3sAuEydbUYD9wHWlybhDk32qlu10LMGpKvmnL7/QChq2nGqApHDme3GcALT9QIJXRNezravFBb5/6L83kXAeKZiHdo8x7heYQ7oI+qzhc1nqGJQeQR8ta18KgGvjXE69aJm1Syd5fwH0U8SJUoecpc0noM5emqswpXSVkCPgkL9odyFkQEfpW8PcKu6PS0+/lVSufsNnafiuKvLrXQhTZPPjhLNzWV111DMi6Jh9JhmwxZ2bXcCAeS4PsYyIhtGq4JeaYWHfovhO0+gDW6Sz2fj2wpM9bW5qfP72dLsnyTWtJzMGpkT2i8fKTs6EZpXdTvq2/ENQ2qnXEzSt9s4oqlZoT89KvB3Tger2gJYAZM5+kFqkbBGvV1Dd1vv57ovatgyM9SwhLhp56peFJdnYrf0KL/RK2e3+QJsVtURnG4rKiwKtTbjKG/gG5aDw/S6616o6SKAGDctACNRQqX2jCmnuG7m+Ihl8VmHcUoLdxhY=
+  # Quay pass
+  - secure: cm89VfSBlvDke3bC8VeVAi6GZ9rp7hKYsqu+JFceb5ddbbfmy/EjoXB+xAZNnoUq/92wGT0IC7aVM6fEgCQZea3+K3pAkCUmTf514a8We6NoHur4rg7bhB2kqxBTccjgjLbR5ZFbrwizDsoWTO6+p5IHhLzjpTKOEkEZUVFjLok2JDjEYeog/DHzGvxFczPcu9N3uBNRHS9PFV1DiaZCOcSi4PZjoMA7Y9uOURi6h3z7v6S12nSFHodTRC4F2+q74/MYS8Mq6LVn4ZI/PP5LAnkItjgTajUOoOzD5EJUF/7dRuo4x4nh10mn32Y0/zp1dmEBLMwJ/ohuqdmB+wOyKznBxfvPI1qC1oh89c/Ziel50uReNTsqp6Sbj35H+hWZj1gyW0SvWLWQvJXzviSZAYs3qOJN8mtElQHJKAlt7nqBn97j3UXFuf40/0VxoyTXfIlHxHDqeaC6iLriXu5ArGMLuFz9fcdwjv7HJnC4GS1TlWbgRXH2P0a9DsrTZx6d8+fBgB3Fw2v5Gx617iEV8UuGD71RnN11j8tcumDmOqCk1kqHOmrw8xn8P5EfmZJW8o1KuRCEdiXZf/Ty6UxkPomYc+tiWhohe+iYADwYc4UDvP2pfV8Zb0MxYTzGuEK48a7fqVpzMtK5fo5XmOHZYe/SdTtN8i2XGykS8WfZKec=
 
 matrix:
   fast_finish: true
   allow_failures:
-    - go: tip
+  - go: tip
 
 before_install:
-  - go get -u github.com/golang/dep/cmd/dep
+- go get -u github.com/golang/dep/cmd/dep
 
 install:
-  - dep ensure
+- dep ensure
 
 before_script:
-  - go get -u github.com/golang/dep/cmd/dep
-  - go get -u github.com/golang/lint/golint
-  - go get -u golang.org/x/tools/cmd/goimports
-  - go get -u golang.org/x/tools/cmd/godoc
+- go get -u github.com/golang/dep/cmd/dep
+- go get -u github.com/golang/lint/golint
+- go get -u golang.org/x/tools/cmd/goimports
+- go get -u golang.org/x/tools/cmd/godoc
 
 script:
-  - ./pre-commit.sh
-  - ./test.sh
+- "./pre-commit.sh"
+- "./test.sh"
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
+
+jobs:
+  include:
+  - stage: deploy
+    script:
+    - export REPO="codem8s/autograph"
+    - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+    - docker build -t $REPO:$COMMIT .
+    - docker tag $REPO:$COMMIT $REPO:$TAG
+    - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+    - docker login -u="$QUAY_USER" -p="$QUAY_PASS" quay.io
+    - docker push quay.io/$REPO:$TAG
