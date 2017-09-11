@@ -79,7 +79,7 @@ func serve(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Run starts http server wihch verifies incoming manifests in kubernetes
+// Run starts http server which verifies incoming manifests in kubernetes
 func Run() error {
 	glog.Info("Starting")
 	http.HandleFunc("/", serve)
