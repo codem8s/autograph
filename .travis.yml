@@ -45,8 +45,8 @@ jobs:
     - export REPO="codem8s/autograph"
     - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
     - echo REPO=$REPO, TAG=$TAG, COMMIT=$COMMIT, TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
-    - docker images
     - docker build -f Dockerfile -t $REPO:$COMMIT .
+    - docker images
     - docker tag $REPO:$COMMIT $REPO:$TAG
     - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
     - docker login -u="$QUAY_USER" -p="$QUAY_PASS" quay.io
