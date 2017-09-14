@@ -23,7 +23,7 @@ Certificate signer and custom admission controller for Kubernetes manifests.
       generate, g  generate a key and certificate pair
       sign, s      sign a manifest
       verify, v    verify a signed manifest
-      run, v       starts the HTTP(S) server
+      run, r       starts the HTTP(S) server
       help, h      Shows a list of commands or help for one command
 
     GLOBAL OPTIONS:
