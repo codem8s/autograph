@@ -49,4 +49,4 @@ after_success:
 - docker push quay.io/$REPO:COMMIT
 - docker push quay.io/$REPO:$TAG
 - docker push quay.io/$REPO:travis-$TRAVIS_BUILD_NUMBER
-- if [ "$TRAVIS_BRANCH" == "master" && $TRAVIS_GO_VERSION == "1.8" ]; docker tag $REPO:$COMMIT quay.io/$REPO:latest; docker push quay.io/$REPO:latest; fi
+- if [ "$TRAVIS_BRANCH" == "master" && $TRAVIS_GO_VERSION == "1.8" ]; then docker tag $REPO:$COMMIT quay.io/$REPO:latest; docker push quay.io/$REPO:latest; fi
