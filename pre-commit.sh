@@ -36,5 +36,3 @@ if [ $? -ne 0 ]; then
   printf >&2 'dep status failed for the following reasons:\n%s\n\nplease run "dep ensure" on your changes before committing.\n' "${DEP_ERRORS}"
   exit 1
 fi
-
-# TODO Run godoc
