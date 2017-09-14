@@ -7,8 +7,10 @@ go:
 
 env:
   global:
-  - VERSION=0.0.0
+  - REPO="codem8s/autograph"
+  - VERSION=0.0.1
   - if [ ! -z "$TRAVIS_TAG" ]; then VERSION=$TRAVIS_TAG; fi
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then TAG="latest"; else TAG=$TRAVIS_BRANCH; fi
   # Short Git hash
   - COMMIT=${TRAVIS_COMMIT::6}
   # Quay user
@@ -39,9 +41,7 @@ script:
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-- export REPO="codem8s/autograph"
-- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-- echo REPO=$REPO, TAG=$TAG, COMMIT=$COMMIT, VERSION=$VERSION, TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER, TRAVIS_TAG=$TRAVIS_TAG, TRAVIS_GO_VERSION=$TRAVIS_GO_VERSION
+- echo REPO=$REPO, TAG=$TAG, COMMIT=$COMMIT, VERSION=$VERSION, TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER, TRAVIS_GO_VERSION=$TRAVIS_GO_VERSION
 - docker build -t $REPO:$VERSION .
 - docker tag $REPO:$VERSION $REPO:$TAG-$VERSION
 - docker tag $REPO:$VERSION $REPO:travis-$TRAVIS_BUILD_NUMBER
