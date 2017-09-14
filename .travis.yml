@@ -40,6 +40,7 @@ after_success:
 - bash <(curl -s https://codecov.io/bash)
 - export TAG=$VERSION-$COMMIT-$TRAVIS_BRANCH-go$TRAVIS_GO_VERSION
 - echo REPO=$REPO, TAG=$TAG, COMMIT=$COMMIT, VERSION=$VERSION, TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER, TRAVIS_GO_VERSION=$TRAVIS_GO_VERSION
+- ls -la
 - docker build -t $REPO:$COMMIT .
 - docker tag $REPO:$COMMIT quay.io/$REPO:COMMIT
 - docker tag $REPO:$COMMIT quay.io/$REPO:$TAG
