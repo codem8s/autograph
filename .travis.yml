@@ -33,16 +33,18 @@ before_script:
 - go get -u golang.org/x/tools/cmd/godoc
 
 script:
+- go test -v ./...
+- go build
 - "./pre-commit.sh"
-- "./test.sh"
 - ls -la
 - pwd
-- docker build -t $REPO:$COMMIT $PWD
-- echo REPO=$REPO, TAG=$TAG, COMMIT=$COMMIT, VERSION=$VERSION, TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER, TRAVIS_GO_VERSION=$TRAVIS_GO_VERSION
 
 after_success:
+- "./test.sh"
 - bash <(curl -s https://codecov.io/bash)
 - export TAG=$VERSION-$COMMIT-$TRAVIS_BRANCH-go$TRAVIS_GO_VERSION
+- echo REPO=$REPO, TAG=$TAG, COMMIT=$COMMIT, VERSION=$VERSION, TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER, TRAVIS_GO_VERSION=$TRAVIS_GO_VERSION
+- docker build -t $REPO:$COMMIT .
 - docker tag $REPO:$COMMIT quay.io/$REPO:COMMIT
 - docker tag $REPO:$COMMIT quay.io/$REPO:$TAG
 - docker tag $REPO:$COMMIT quay.io/$REPO:travis-$TRAVIS_BUILD_NUMBER
