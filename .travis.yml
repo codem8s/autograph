@@ -35,7 +35,9 @@ before_script:
 script:
 - "./pre-commit.sh"
 - "./test.sh"
-- docker build -t $REPO:$COMMIT .
+- ls -la
+- pwd
+- docker build -t $REPO:$COMMIT $PWD
 - echo REPO=$REPO, TAG=$TAG, COMMIT=$COMMIT, VERSION=$VERSION, TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER, TRAVIS_GO_VERSION=$TRAVIS_GO_VERSION
 
 after_success:
