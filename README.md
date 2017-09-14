@@ -123,6 +123,13 @@ After that there should be a new annotation in the manifest, e.g.:
     cd $GOPATH/src/github.com/codem8s/autograph
     dep ensure
 
+## Version Changes
+
+Make sure to update:
+- `README.md` (both badge and the text)
+- `.travis.yml` (image version)
+- `main.go` (binary version)
+
 ## Contribute
 
 If you have any idea for an improvement or found a bug don't hesitate to open an issue or just make a pull request!
