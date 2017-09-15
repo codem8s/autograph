@@ -2,15 +2,20 @@
 
 export BUILD_TAG="travis-$TRAVIS_BUILD_NUMBER-$TRAVIS_BRANCH-$COMMIT-go$TRAVIS_GO_VERSION"
 
-if [[ "${TRAVIS_BRANCH}" =~ "release-*" ]] && [ "${TRAVIS_GO_VERSION}" == "1.8" ]; then
-  export LATEST_TAG="latest"
-  export VERSION_TAG="$VERSION"
+if [[ "${TRAVIS_BRANCH}" =~ "release-*" ]]; then
+  if [ "${TRAVIS_GO_VERSION}" == "1.8" ]; then
+    export LATEST_TAG="latest"
+    export VERSION_TAG="$VERSION"
+  else
+    export LATEST_TAG="latest-$TRAVIS_GO_VERSION"
+    export VERSION_TAG="$VERSION-$TRAVIS_GO_VERSION"
+  fi
 else
-  export LATEST_TAG="latest-$TRAVIS_GO_VERSION"
+  export LATEST_TAG="$TRAVIS_BRANCH-$TRAVIS_GO_VERSION"
   export VERSION_TAG="$COMMIT-$TRAVIS_GO_VERSION"
 fi
 
-echo "REPO=$REPO, COMMIT=$COMMIT, BUILD_TAG=$BUILD_TAG, VERSION_TAG=$VERSION_TAG, LATEST=$LATEST_TAG"
+echo "REPO=$REPO, COMMIT=$COMMIT, VERSION_TAG=$VERSION_TAG, BUILD_TAG=$BUILD_TAG, LATEST_TAG=$LATEST_TAG"
 
 docker build -t ${REPO}:${COMMIT} .
 docker tag ${REPO}:${COMMIT} quay.io/${REPO}:${VERSION_TAG}
