@@ -2,7 +2,7 @@
 
 export BUILD_TAG="travis-$TRAVIS_BUILD_NUMBER-$TRAVIS_BRANCH-$COMMIT-go$TRAVIS_GO_VERSION"
 
-if [ "${TRAVIS_BRANCH}" == "master" ] && [ "${TRAVIS_GO_VERSION}" == "1.8" ]; then
+if [ "${TRAVIS_BRANCH}" =~ "release-*" ] && [ "${TRAVIS_GO_VERSION}" == "1.8" ]; then
   export LATEST_TAG="latest"
   export VERSION_TAG="$VERSION"
 else
