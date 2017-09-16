@@ -19,29 +19,30 @@ package generate
 import (
 	"crypto/rand"
 	"crypto/rsa"
+	"crypto/tls"
 	"crypto/x509"
 	"crypto/x509/pkix"
 	"encoding/pem"
+	"log"
 	"math/big"
+	"net"
 	"os"
 	"time"
-	"crypto/tls"
-	"net"
-	"log"
 )
 
 const (
-	cnBase = "codem8s_autograph"
-	certificateBits = 2048
-	twoYears = 2
+	// CertificatesDestinationFolder point to the directory where certificates will be created
 	CertificatesDestinationFolder = "resources/"
-	caFile = CertificatesDestinationFolder + "ca.pem"
-	caKeyFile = CertificatesDestinationFolder + "ca.key"
-	fileMode = 0600
+	cnBase                        = "codem8s_autograph"
+	certificateBits               = 2048
+	twoYears                      = 2
+	caFile                        = CertificatesDestinationFolder + "ca.pem"
+	caKeyFile                     = CertificatesDestinationFolder + "ca.key"
+	fileMode                      = 0600
 )
 
-// GenerateTLSCertificates generate TLS certificates and put them in resources directory
-func GenerateTLSCertificates() {
+// TLSCertificates generate TLS certificates and put them in resources directory
+func TLSCertificates() {
 	os.MkdirAll(CertificatesDestinationFolder, 0700)
 	generateCA()
 
@@ -56,7 +57,7 @@ func GenerateTLSCertificates() {
 	generateCertificate("server", caPair, kubernetesServiceIP)
 }
 
-func generateSerialNumber() (*big.Int) {
+func generateSerialNumber() *big.Int {
 	serialNumber, err := rand.Int(rand.Reader, (&big.Int{}).Exp(big.NewInt(2), big.NewInt(159), nil))
 	if err != nil {
 		log.Fatal(err)
@@ -70,7 +71,7 @@ func generateCA() {
 	ca := &x509.Certificate{
 		SerialNumber: serialNumber,
 		Subject: pkix.Name{
-			CommonName:  cnBase + "_ca",
+			CommonName: cnBase + "_ca",
 		},
 		NotBefore:             time.Now(),
 		NotAfter:              time.Now().AddDate(twoYears, 0, 0),
@@ -102,7 +103,7 @@ func generateCA() {
 	log.Print(caFile + " created \n")
 
 	// Private key
-	keyOut, err := os.OpenFile(caKeyFile, os.O_WRONLY | os.O_CREATE | os.O_TRUNC, fileMode)
+	keyOut, err := os.OpenFile(caKeyFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, fileMode)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -126,15 +127,15 @@ func generateCertificate(name string, caPair tls.Certificate, kubernetesServiceI
 	cert := &x509.Certificate{
 		SerialNumber: serialNumber,
 		Subject: pkix.Name{
-			CommonName:  cnBase + "_" + name,
+			CommonName: cnBase + "_" + name,
 		},
 		NotBefore:    time.Now(),
 		NotAfter:     time.Now().AddDate(twoYears, 0, 0),
 		SubjectKeyId: []byte{1, 2, 3, 4, 6},
 		ExtKeyUsage:  []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth, x509.ExtKeyUsageServerAuth},
 		KeyUsage:     x509.KeyUsageDigitalSignature,
-		IPAddresses: kubernetesServiceIP,
-		IsCA: false,
+		IPAddresses:  kubernetesServiceIP,
+		IsCA:         false,
 	}
 	priv, err := rsa.GenerateKey(rand.Reader, certificateBits)
 	if err != nil {
@@ -154,7 +155,7 @@ func generateCertificate(name string, caPair tls.Certificate, kubernetesServiceI
 
 	// Private key
 	keyFile := CertificatesDestinationFolder + name + ".key"
-	keyOut, err := os.OpenFile(keyFile, os.O_WRONLY | os.O_CREATE | os.O_TRUNC, fileMode)
+	keyOut, err := os.OpenFile(keyFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, fileMode)
 	pem.Encode(keyOut, &pem.Block{Type: "RSA PRIVATE KEY", Bytes: x509.MarshalPKCS1PrivateKey(priv)})
 	keyOut.Close()
 	log.Print(keyFile + " created \n")

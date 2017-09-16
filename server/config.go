@@ -19,8 +19,8 @@ package server
 import (
 	"crypto/tls"
 	"crypto/x509"
-	"log"
 	"io/ioutil"
+	"log"
 )
 
 func configTLS(certificatesDirectory string) (*tls.Config, error) {
@@ -32,7 +32,7 @@ func configTLS(certificatesDirectory string) (*tls.Config, error) {
 	apiserverCA := x509.NewCertPool()
 	apiserverCA.AppendCertsFromPEM(caCert)
 
-	sCert, err := tls.LoadX509KeyPair(certificatesDirectory + "/server.pem", certificatesDirectory + "/server.key")
+	sCert, err := tls.LoadX509KeyPair(certificatesDirectory+"/server.pem", certificatesDirectory+"/server.key")
 	if err != nil {
 		return nil, err
 	}

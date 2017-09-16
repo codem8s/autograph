@@ -20,12 +20,13 @@ import (
 	"fmt"
 	"os"
 
+	"errors"
+	"flag"
+	"log"
+
 	"github.com/codem8s/autograph/generate"
 	"github.com/codem8s/autograph/server"
 	"github.com/urfave/cli"
-	"log"
-	"errors"
-	"flag"
 )
 
 // This file implements common CLI operations:
@@ -54,7 +55,7 @@ func main() {
 					return err
 				}
 
-				generate.GenerateTLSCertificates()
+				generate.TLSCertificates()
 
 				return nil
 			},
@@ -90,8 +91,8 @@ func main() {
 			},
 			Flags: []cli.Flag{
 				cli.StringFlag{
-					Name: "dir",
-					Usage: "Directory where certificates are stored",
+					Name:        "dir",
+					Usage:       "Directory where certificates are stored",
 					Destination: &certificatesDirectory,
 				},
 			},

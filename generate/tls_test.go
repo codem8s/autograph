@@ -17,18 +17,18 @@ limitations under the License.
 package generate
 
 import (
+	"crypto/tls"
+	"crypto/x509"
+	"encoding/pem"
+	"fmt"
+	"io/ioutil"
 	"os"
 	"testing"
-	"crypto/tls"
-	"encoding/pem"
-	"crypto/x509"
-	"io/ioutil"
-	"fmt"
 )
 
 func TestGenerateTLSCertificates(t *testing.T) {
 	// when
-	GenerateTLSCertificates()
+	TLSCertificates()
 
 	// then
 	fileName := CertificatesDestinationFolder + "ca.pem"
@@ -64,7 +64,7 @@ func TestGenerateTLSCertificates(t *testing.T) {
 
 func TestLoadTLSCertificates(t *testing.T) {
 	// when
-	GenerateTLSCertificates()
+	TLSCertificates()
 
 	// then
 	_, err := tls.LoadX509KeyPair(CertificatesDestinationFolder + "ca.pem", CertificatesDestinationFolder + "ca.key")
@@ -85,7 +85,7 @@ func TestLoadTLSCertificates(t *testing.T) {
 
 func TestVerifyTLSCertificates(t *testing.T) {
 	// when
-	GenerateTLSCertificates()
+	TLSCertificates()
 
 	// then
 	verifyCertificate(CertificatesDestinationFolder + "ca.pem", CertificatesDestinationFolder + "client.pem")
@@ -117,7 +117,7 @@ func verifyCertificate(caFile, certificateFile string) {
 	}
 
 	opts := x509.VerifyOptions{
-		Roots:   roots,
+		Roots: roots,
 	}
 
 	if _, err := cert.Verify(opts); err != nil {
