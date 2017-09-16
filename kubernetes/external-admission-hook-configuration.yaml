@@ -1,23 +1,42 @@
-apiVersion: admissionregistration.k8s.io/v1lapha1
+apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ExternalAdmissionHookConfiguration
 metadata:
   name: autograph
   namespace: default
-spec:
-  externalAdmissionHooks:
-    - name: pod
-      rules:
-        - operations:
-            - CREATE
-          apiGroups:
-            - ""
-          apiVersions:
-            - v1
-          resources:
-            - pods
-      failurePolicy: Fail
-      clientConfig:
-        service:
-          namespace: default
-          name: webhook
-        caBundle:
+externalAdmissionHooks:
+- name: pod.autograph.com
+  rules:
+    - operations:
+        - CREATE
+      apiGroups:
+        - ""
+      apiVersions:
+        - v1
+      resources:
+        - pods
+  failurePolicy: Ignore
+  clientConfig:
+    service:
+      namespace: default
+      name: autograph
+    caBundle: |
+      LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUREakNDQWZhZ0F3SUJBZ0lVYTBhTlpXVTE1
+      ZWNXUWtQN05WcElKTjFmM2h3d0RRWUpLb1pJaHZjTkFRRUwKQlFBd0h6RWRNQnNHQTFVRUF3d1VZ
+      MjlrWlcwNGMxOWhkWFJ2WjNKaGNHaGZZMkV3SGhjTk1UY3dPVEUyTVRjMApPRFEyV2hjTk1Ua3dP
+      VEUyTVRjME9EUTJXakFmTVIwd0d3WURWUVFEREJSamIyUmxiVGh6WDJGMWRHOW5jbUZ3CmFGOWpZ
+      VENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLdVpQS3hDY0xuMlNF
+      cGYKa0VaYTd1dlJOU0RlNitqbTl2UnJNY093M1ptWlQyaDF5UnRBQVczVHVFQlNMU3IwTnpQdU84
+      RUdBWFVFWHoxTgpCSXh1YkpXZmRyQzNUekhmWVVwUjVtbjN3ZGY1WU9BR3FRZEozNXNpbHF4QXI1
+      UWs1MGU5aVlYOGYxQnhXQWhxClJxQkR5ZWhYV2dlNGtoWEViUTY1SkxjWFRIZ3JzdUJySHhMK0JH
+      U0FENkJ4RG0yZ0lGUUtNa1JHdzVzc0VQK2sKRWN5OE1nN3ZVZnd2Um1qZmR5aCszVDY5OW9lMlZo
+      YkorRWtURDFBZm1qVjZYMDlPejVuRkZTUmtOWGxFU0JMQgo2U0Y5ekt6RGZvNEQxRmVxc3pBSnhD
+      STIvVnFIOGd2Z0ZDL2c1dG9nOGZrZGllNlVKTVNoQzhSVm1mZDJsQWhkCmliVHJnbGtDQXdFQUFh
+      TkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS0VNQjBHQTFVZEpRUVdNQlFHQ0NzR0FRVUYKQndNQ0Jn
+      Z3JCZ0VGQlFjREFUQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01BMEdDU3FHU0liM0RRRUJDd1VBQTRJ
+      QgpBUUFscjlRcE5GQy9rNkhDL1NoSU5mVjZLeUszbEc1Uk5ZTG1vWTVQenN4TytPWDQ0cTJCWUVm
+      R2s4TmpiajNhCm4xN2tRMnQ2dUloVkE3RU1rcFhzM2lsc3F6S0F5K0hyV20wN2t0YXUwWUswQkFl
+      NFVSNlhtbTBLM3ZYVFBtVWMKUFhpZFF0ZjU1WVgvamxjU3FrcWd6WlFHZDVZeStQQ2t3b2J5anlZ
+      TVBYR0t1Ty9MTTJSTWdhbFQ5cjA2ZHBuOQpzcndhbEVEQkJMcVhtRnY5M1I5TGQzcWovRUdJQVVV
+      VEJ5N1Yxbm5JK3BoQTByS0JESXV1VTB0bmZzaHViWmMrCmplT2ZWWk1zRnZrd25aaTFUclphM0Er
+      RzhFMDdOVXVjYlZMcGNvTWxTaFBSc1BzNUUvaElMbGZjd1NwZlNRdVQKNTRlbnVIaktTTjlmZ3F6
+      QVdxNnk2bGZKCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K

@@ -22,5 +22,8 @@ autograph
 autograph.key
 autograph.pub
 
-/clientCert.pem
-/clientKey.pem
+generate/resources/*
+
+/kubernetes/external-admission-hook-configuration.yaml
+/resources/*.pem
+/resources/*.key

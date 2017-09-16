@@ -25,29 +25,28 @@ import (
 	"k8s.io/client-go/pkg/api/v1"
 
 	"strings"
-
-	"github.com/golang/glog"
+	"log"
 )
 
 // only allow pods to pull images from specific registry.
 func admit(data []byte) *AdmissionReviewStatus {
 	ar := AdmissionReview{}
 	if err := json.Unmarshal(data, &ar); err != nil {
-		glog.Error(err)
+		log.Print(err)
 		return nil
 	}
 	// The externalAdmissionHookConfiguration registered via selfRegistration
 	// asks the kube-apiserver only sends admission request regarding pods.
 	podResource := metav1.GroupVersionResource{Group: "", Version: "v1", Resource: "pods"}
 	if ar.Spec.Resource != podResource {
-		glog.Errorf("expect resource to be %s", podResource)
+		log.Printf("expect resource to be %s\n", podResource)
 		return nil
 	}
 
 	raw := ar.Spec.Object.Raw
 	pod := v1.Pod{}
 	if err := json.Unmarshal(raw, &pod); err != nil {
-		glog.Error(err)
+		log.Print(err)
 		return nil
 	}
 	reviewStatus := AdmissionReviewStatus{}
@@ -72,12 +71,12 @@ func serve(w http.ResponseWriter, r *http.Request) {
 			body = data
 		}
 	}
-	glog.Infof("Review request:\n%s", body)
+	log.Printf("Review request:\n%s", body)
 
 	// verify the content type is accurate
 	contentType := r.Header.Get("Content-Type")
 	if contentType != "application/json" {
-		glog.Errorf("contentType=%s, expect application/json", contentType)
+		log.Printf("contentType=%s, expect application/json", contentType)
 		return
 	}
 
@@ -88,22 +87,24 @@ func serve(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := json.Marshal(ar)
 	if err != nil {
-		glog.Error(err)
+		log.Print(err)
 	}
 	if _, err := w.Write(resp); err != nil {
-		glog.Error(err)
+		log.Print(err)
 	}
 }
 
 // Run starts http server which verifies incoming manifests in kubernetes
-func Run() error {
-	glog.Info("Starting")
+func Run(certificatesDirectory string) error {
+	log.Print("Server is starting ...")
 	http.HandleFunc("/", serve)
-	clientset := getClient()
+	tlsConfig, err := configTLS(certificatesDirectory)
+	if err != nil {
+		return err
+	}
 	server := &http.Server{
 		Addr:      ":8000",
-		TLSConfig: configTLS(caCert),
+		TLSConfig: tlsConfig,
 	}
-	selfRegistration(clientset, caCert)
 	return server.ListenAndServeTLS("", "")
 }

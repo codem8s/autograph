@@ -17,14 +17,15 @@ limitations under the License.
 package main
 
 import (
-	"flag"
 	"fmt"
 	"os"
 
 	"github.com/codem8s/autograph/generate"
 	"github.com/codem8s/autograph/server"
-	"github.com/golang/glog"
 	"github.com/urfave/cli"
+	"log"
+	"errors"
+	"flag"
 )
 
 // This file implements common CLI operations:
@@ -34,9 +35,13 @@ import (
 // * run - starts the HTTP(S) server
 func main() {
 	flag.Parse()
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
 	app := cli.NewApp()
 	app.Name = "autograph"
 	app.Version = "0.0.1"
+
+	var certificatesDirectory string
 
 	app.Commands = []cli.Command{
 		{
@@ -48,6 +53,9 @@ func main() {
 				if err != nil {
 					return err
 				}
+
+				generate.GenerateTLSCertificates()
+
 				return nil
 			},
 		},
@@ -74,7 +82,18 @@ func main() {
 			Aliases: []string{"r"},
 			Usage:   "starts the HTTP(S) server",
 			Action: func(c *cli.Context) error {
-				return server.Run()
+				if certificatesDirectory == "" {
+					return errors.New("dir option not found")
+				}
+
+				return server.Run(certificatesDirectory)
+			},
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name: "dir",
+					Usage: "Directory where certificates are stored",
+					Destination: &certificatesDirectory,
+				},
 			},
 		},
 	}
@@ -82,6 +101,6 @@ func main() {
 	err := app.Run(os.Args)
 
 	if err != nil {
-		glog.Fatal(err)
+		log.Fatal(err)
 	}
 }

@@ -94,12 +94,15 @@ After that there should be a new annotation in the manifest, e.g.:
     cd ~/go
     export GOPATH=$(pwd)
     cd $GOPATH/src/github.com/codem8s/autograph
-    ./gencerts.sh
-    ./start-minikube.sh
     export CGO_ENABLED=0 GOOS=linux
     go build
+    ./autograph generate
+    ./start-minikube.sh
     eval $(minikube docker-env)
     docker build -t autograph .
+    cat kubernetes/external-admission-hook-configuration > kubernetes/external-admission-hook-configuration.yaml
+    awk '{printf("          %s\n", $0)}' resources/ca.pem >> kubernetes/external-admission-hook-configuration.yaml
+    kubectl create secret generic autograph --from-file=./resources/server.pem --from-file=./resources/server.key
     kubectl create -f kubernetes/service.yaml
     kubectl create -f kubernetes/autograph.yaml
     

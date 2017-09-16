@@ -7,13 +7,16 @@ metadata:
     app: autograph
 spec:
   containers:
-    - name: webhook
+    - name: autograph
       image: autograph:latest
+      command: ["/autograph", "run", "-dir", "/etc/autograph"]
       imagePullPolicy: IfNotPresent
       ports:
         - containerPort: 8000
-      env:
-        - name: NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
+      volumeMounts:
+      - name: autograph
+        mountPath: /etc/autograph
+  volumes:
+  - name: autograph
+    secret:
+      secretName: autograph
