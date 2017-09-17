@@ -67,17 +67,17 @@ func TestLoadTLSCertificates(t *testing.T) {
 	TLSCertificates()
 
 	// then
-	_, err := tls.LoadX509KeyPair(CertificatesDestinationFolder + "ca.pem", CertificatesDestinationFolder + "ca.key")
+	_, err := tls.LoadX509KeyPair(CertificatesDestinationFolder+"ca.pem", CertificatesDestinationFolder+"ca.key")
 	if err != nil {
 		t.Error("CA certificate can't be load")
 	}
 
-	_, err = tls.LoadX509KeyPair(CertificatesDestinationFolder + "client.pem", CertificatesDestinationFolder + "client.key")
+	_, err = tls.LoadX509KeyPair(CertificatesDestinationFolder+"client.pem", CertificatesDestinationFolder+"client.key")
 	if err != nil {
 		t.Error("Client certificate can't be load")
 	}
 
-	_, err = tls.LoadX509KeyPair(CertificatesDestinationFolder + "server.pem", CertificatesDestinationFolder + "server.key")
+	_, err = tls.LoadX509KeyPair(CertificatesDestinationFolder+"server.pem", CertificatesDestinationFolder+"server.key")
 	if err != nil {
 		t.Error("Server certificate can't be load")
 	}
@@ -88,8 +88,8 @@ func TestVerifyTLSCertificates(t *testing.T) {
 	TLSCertificates()
 
 	// then
-	verifyCertificate(CertificatesDestinationFolder + "ca.pem", CertificatesDestinationFolder + "client.pem")
-	verifyCertificate(CertificatesDestinationFolder + "ca.pem", CertificatesDestinationFolder + "server.pem")
+	verifyCertificate(CertificatesDestinationFolder+"ca.pem", CertificatesDestinationFolder+"client.pem")
+	verifyCertificate(CertificatesDestinationFolder+"ca.pem", CertificatesDestinationFolder+"server.pem")
 }
 
 func verifyCertificate(caFile, certificateFile string) {
